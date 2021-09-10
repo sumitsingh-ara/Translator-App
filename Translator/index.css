@@ -1,0 +1,137 @@
+
+body {
+   background: url("https://c0.wallpaperflare.com/preview/803/320/871/translate-translation-web-service.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-attachment: fixed;
+  }
+.welcomeBox{
+    width: 60%;
+    padding:1%;
+    margin:auto;
+    height: 16vh;
+    overflow: hidden;
+}
+.container {
+    width:80%;
+    height: 50vh;
+    margin:auto;
+    display: grid;
+    grid-template-columns: 40% 20% 40%;
+    padding: 1%;
+}
+
+h3{
+    margin:0px;
+}
+h1{
+        text-align: center;
+        font-size: 1.8em;
+        margin:0px;
+        margin: 1%;
+}
+.hid{
+    display: none;
+}
+.frm{
+    display: flex;
+    padding-left: 35%;
+    padding-right: 40%;
+}
+#input{
+    width: 90%;
+    height:80%;
+    margin-top: 2%;
+    padding:4%;
+    font-size: 1.5em;
+}
+#output{
+    width: 90%;
+    height:80%;
+    margin-top: 2%;
+    padding:4%;
+    font-size: 1.5em;
+}
+#input:focus{
+    background-color:blue;
+    color:white;
+}
+select{
+    margin-left:10%;
+}
+#translate{
+    padding-top:25vh;
+    height:5vh;
+    padding-left:25%;
+}
+.button {
+    display: inline-block;
+    padding: 8% 14%;
+    font-size: 100%;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+  
+  .button:hover {background-color: #3e8e41}
+  
+  .button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+.btns{
+    width:18%;
+    margin: auto;
+    display: flex;
+}
+#read {
+    padding:8px 16px;
+    border: none;
+    color: white;
+    background-color: rgb(25, 25, 180);
+    margin:1%;
+}
+.spk{
+    padding:8px 16px;
+    border: none;
+    color: white;
+    background-color: rgb(25, 25, 180);
+    margin:1%;
+}
+
+
+@media screen and (max-width:400px) {
+    h1{
+        display: none;
+    }
+    .hid{
+        display: block;
+        text-align: center;
+    }
+    .welcomeBox{
+        height: 5vh;
+    }
+    .container{
+        display:block;
+    }
+    #translate{
+        padding-top: 2vh;
+        padding-bottom: 10vh;
+    }
+    .btns{
+        padding-top:20vh;
+        width:70%;
+        margin: auto;
+    }
+    .frm{
+        padding-left: 13vh;
+    }
+    
+}
