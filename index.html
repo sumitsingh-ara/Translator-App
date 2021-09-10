@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Translator</title>
+</head>
+<body>
+    <div class="welcomeBox"><h1>Don't Speak the Language?</h1><h1 id="welcome"></h1> <span class="hid">Translate to 15+ languages</span></div>
+    <div class="container">
+        <div>
+           <div class="frm"><h3>From</h3> <select id="languagesFrom"></select> </div>
+           <textarea id="input" class="from"></textarea>
+        </div>
+        <div id="translate"><button onclick="show()" class="button" >Translate</button></div>
+        <div>
+            <div class="frm"><h3>To</h3> <select id="languagesTo"></select> </div>
+           <textarea id="output" class="from"></textarea>
+        </div>
+    </div>
+    <div class="btns">
+        <button onclick="reader()" id="read">Speech output</button>
+        <button onclick="speakType()" class="spk">Speech to text</button>
+    </div>
+</body>
+</html>
+<script>
+    function auto(){
+        function wel(){
+        function random(number) {
+        return Math.floor(Math.random()*number)
+      }
+      function colors (){
+          let line = document.getElementById("welcome")
+        var new1 = "rgb("+random(255) + "," + random(255) + "," + random(255) + ")";
+        line.style.color = new1;
+      }
+      colors();
+        document.getElementById("welcome").innerHTML="Now u can translate your language for more than 15+ countries"
+    }
+    function remove(){
+        document.getElementById("welcome").innerHTML=null;
+    }
+    setInterval(remove,500);
+    setInterval(wel,1000);
+    }
+    auto();
+
+    async function translate(){
+        let response = await fetch("https://libretranslate.de/languages");
+        let data = await response.json()
+        setOptions(data)
+    }
+    translate();
+    function setOptions(lan) {
+        let fromDiv = document.getElementById(`languagesFrom`);
+        let toDiv = document.getElementById(`languagesTo`)
+        lan.forEach((language) => {
+        let opt = document.createElement(`option`);
+        opt.value = language.code;
+        opt.textContent = language.name;
+        toDiv.append(opt);
+  });
+  lan.forEach((language) => {
+        let opt = document.createElement(`option`);
+        opt.value = language.code;
+        opt.textContent = language.name;
+        fromDiv.append(opt);
+  });
+}
+async function show() {
+        let from = document.getElementById("languagesFrom").value;
+        let to = document.getElementById("languagesTo").value;
+        let inp = document.getElementById("input").value;
+        const response = await fetch("https://libretranslate.de/translate",{
+            method: "POST",
+            body:JSON.stringify({
+                q:`${inp}`,
+                source:`${from}`,
+                target:`${to}`,
+            }),
+            headers:{"Content-Type": "application/json"}
+        });
+        let outing = await response.json();
+        document.getElementById("output").value = outing.translatedText;
+    }
+    function reader(){
+        let speak = new SpeechSynthesisUtterance();
+        speak.lang = document.getElementById("languagesTo").value;
+        speak.text = document.getElementById("output").value;
+        speak.volume = 1;
+        window.speechSynthesis.speak(speak);
+    }
+    
+    function speakType(){
+
+        var listener = new webkitSpeechRecognition();
+        listener.onstart= function(){
+            document.getElementById("input").value = null;
+            console.log("speak please!");
+            
+        }
+        listener.onspeechend = function(){
+            listener.stop();
+            console.log("Stopped");
+        }
+
+        listener.onresult = function(e){
+            var translate = e.results[0][0].transcript;
+            document.getElementById("input").value = translate;
+            console.log(translate);
+        }
+        listener.start();
+    }
+</script>
